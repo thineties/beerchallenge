@@ -13,6 +13,12 @@ A static hand-tracking beer experiment. English by default, with Thai available 
 
 Official setup guide: https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
 
+## Mobile support (v0.3)
+
+On phones, Fullscreen expands the experience to the browser viewport with an explicit Exit button and all controls retained. Browser address bars may remain; this does not claim native operating-system fullscreen on unsupported iPhones. Portrait and landscape layouts are supported. Swipe left directly on the glass to change glasses; dragging the timeline scrubs the footage. The first touch primes muted inline video decoding. Reduced-motion preferences use a short fade instead of a lateral slide.
+
+Validated using desktop browser viewports at 390×844 and 844×390: expand/exit, slider-to-overflow at 48 seconds, next-glass reset and control layout. Actual iPhone/Safari hardware verification remains outstanding. Use HTTPS GitHub Pages for camera and module loading; file:// previews do not provide the full hosted behavior.
+
 ## Files
 
 - `index.html`: all interface HTML, CSS, and application JavaScript in one file.

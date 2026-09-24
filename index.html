@@ -1,22 +1,31 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Beer / Time — Hand Lab</title><meta name="description" content="ใช้มือเติมเบียร์ หยุดเวลา ย้อนกลับ และปัดไปแก้วถัดไป"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111111'/%3E%3Cpath d='M10 6h12L12 16l10 10H10l10-10Z' fill='%23efb14c'/%3E%3C/svg%3E"><style>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Beer / Time — Hand Lab</title><meta name="description" content="ใช้มือเติมเบียร์ หยุดเวลา ย้อนกลับ และปัดไปแก้วถัดไป"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111111'/%3E%3Cpath d='M10 6h12L12 16l10 10H10l10-10Z' fill='%23efb14c'/%3E%3C/svg%3E"><style>
 :root{color-scheme:dark;--bg:#101110;--panel:#181a18;--line:#33362f;--muted:#a0a49a;--ink:#f1f2e9;--gold:#efb14c}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,'Helvetica Neue','Thonburi',sans-serif}main{max-width:1440px;margin:auto;padding:0 5%}header{height:90px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.wordmark{font-size:24px;font-weight:850;letter-spacing:-1px;color:var(--ink);text-decoration:none}.wordmark>span:first-child{color:var(--gold);margin:0 6px}.lab{font-size:11px;letter-spacing:2px;font-weight:500;margin-left:18px;border-left:1px solid var(--line);padding-left:18px}.edition{font-size:12px;letter-spacing:1.5px;color:var(--muted)}.edition span{margin-left:30px;color:var(--gold)}.heading{display:flex;align-items:end;justify-content:space-between;padding:32px 0 28px}.eyebrow{color:var(--gold);font-size:14px;margin:0 0 5px}h1{font-size:clamp(38px,5vw,64px);font-weight:500;letter-spacing:-2px;line-height:1.05;margin:0}h1 em{font-family:Georgia,serif;font-weight:400;color:var(--gold)}.intro{color:var(--muted);margin:0;font-size:15px}.stage{position:relative;background:#000;border:1px solid var(--line);border-radius:12px;overflow:hidden;height:clamp(350px,43vw,570px)}.stage:fullscreen{height:100vh;border:0;border-radius:0}.stage-top,.stage-bottom{position:absolute;z-index:2;left:26px;right:26px;display:flex;justify-content:space-between;align-items:center}.stage-top{top:18px;font-size:12px;letter-spacing:2px;color:#c3c7bc}.stage-top>span:first-child{color:var(--gold)}.stage-top button{letter-spacing:0}.stage-bottom{bottom:18px;gap:15px}.state{font-size:14px;display:flex;align-items:center;gap:10px}.state i{width:6px;height:6px;border-radius:50%;background:#878c80;flex-shrink:0}.state i.live{background:var(--gold);box-shadow:0 0 12px #efb14c55}.prototype{font-size:11px;letter-spacing:1.8px;color:#777e70}#scene{width:100%;height:100%;display:flex;justify-content:center;align-items:center}#beerCanvas{width:100%;height:100%;object-fit:contain;display:block}.camera-box{position:absolute;left:26px;bottom:64px;width:160px;height:120px;background:#10130fd9;border:1px solid #41463b;border-radius:7px;overflow:hidden}.camera-box video,.camera-box canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}#cameraPlaceholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#92988a;font-size:12px}#cameraPlaceholder span{font-size:26px;filter:grayscale(1);margin-bottom:4px}.camera-label{position:absolute;bottom:5px;left:9px;font-size:9px;letter-spacing:1px;color:#a7ad9c;background:#0008;padding:0 4px}.level{position:absolute;right:27px;top:32%;display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--gold)}#percent{font-size:32px;font-weight:300;font-variant-numeric:tabular-nums}#percent span{font-size:14px;margin-left:3px}.meter{height:100px;width:3px;background:#32372d;position:relative}#meterFill{position:absolute;bottom:0;left:0;width:100%;height:0;background:var(--gold);box-shadow:0 0 15px #efb14c55}#levelLabel{font-size:12px;color:#a4ab99}.transport{padding:23px 0 0}.timeline-label,.timeline-ends,.actions{display:flex;justify-content:space-between;align-items:center}.timeline-label{font-size:14px;font-variant-numeric:tabular-nums}.muted{color:var(--muted)}input[type=range]{appearance:none;width:100%;height:4px;background:var(--line);cursor:pointer;margin:20px 0 9px;accent-color:var(--gold)}input[type=range]::-webkit-slider-thumb{appearance:none;width:13px;height:13px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 5px #efb14c15}.timeline-ends{font-size:10px;letter-spacing:1.5px;color:var(--muted)}.actions{margin-top:22px;gap:12px}.main-actions{display:flex;gap:10px}button,input,select{font:inherit}button{border:1px solid #41473b;border-radius:6px;background:#1d211b;color:var(--ink);padding:11px 20px;cursor:pointer;transition:background .15s,transform .15s;font-size:14px}button:hover{background:#33392b}button:active{transform:translateY(1px)}button:disabled{opacity:.5;cursor:wait}.primary{background:var(--gold);color:#1d180e;border-color:var(--gold);font-weight:650}.primary:hover{background:#ffc96a}.icon-button{font-size:21px;padding:5px 16px}.small{font-size:12px;padding:5px 10px;background:#171a14a8}#next span{margin-left:24px;color:var(--gold);font-size:20px}.message{font-size:13px;color:var(--muted);min-height:22px;margin:16px 0 23px}.gestures{border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);padding:25px 0;gap:24px}.gestures article{display:flex;align-items:center;gap:18px}.gesture-symbol{color:var(--gold);font-size:36px;font-weight:200;width:35px;flex-shrink:0}.step{font-size:10px;letter-spacing:1.5px;color:var(--muted)}h2{font-size:15px;font-weight:500;margin:3px 0}.gestures p{margin:0;font-size:13px;color:var(--muted)}.settings{margin-top:15px;color:var(--muted);font-size:14px}.settings summary{cursor:pointer;padding:12px 0;display:flex;justify-content:space-between}.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:20px;background:var(--panel);border-radius:8px}.settings label{display:block;color:var(--ink);margin-bottom:8px}.settings p{font-size:13px;margin:10px 0;color:var(--muted)}select,input[type=file],input[type=number]{width:100%;background:#10130f;border:1px solid #444a3d;color:var(--ink);border-radius:4px;padding:9px;font-size:14px}input[type=file]{font-size:13px}.trim{display:flex;gap:10px;align-items:end}.trim label{font-size:12px;margin:0}.trim button{white-space:nowrap;padding:9px}footer{display:flex;justify-content:space-between;gap:20px;padding:25px 0 30px;font-size:11px;color:#7b8374;letter-spacing:.5px}:focus-visible{outline:2px solid var(--gold);outline-offset:4px}@media(max-width:700px){main{padding:0 5%}header{height:70px}.wordmark{font-size:21px}.lab{font-size:9px;margin-left:10px;padding-left:10px}.edition{display:none}.heading{display:block;padding:25px 0 20px}.intro{margin-top:14px;font-size:14px}h1{font-size:46px}.stage{height:390px}.stage-top,.stage-bottom{left:14px;right:14px}.stage-top{top:12px}.stage-top>span:nth-child(2){display:none}.stage-bottom{bottom:12px}.prototype{display:none}.state{font-size:12px}.camera-box{left:14px;bottom:49px;width:108px;height:81px}.level{right:16px;top:28%}#percent{font-size:24px}.meter{height:65px}#beerCanvas{width:150%;max-width:none;flex-shrink:0}.actions{flex-wrap:wrap}.main-actions{flex:1;flex-wrap:wrap;gap:8px}.primary{flex-grow:1;padding:11px 12px}button{padding:10px 13px}#next{width:100%;text-align:left;display:flex;justify-content:space-between}.gestures{grid-template-columns:1fr;gap:18px;padding:20px 0}.gestures article{gap:15px}.settings-grid{grid-template-columns:1fr;padding:14px}footer{flex-wrap:wrap;font-size:10px}footer span:nth-child(2){order:3;width:100%}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 .header-tools{display:flex;gap:24px;align-items:center}#language{width:auto;min-width:105px;padding:7px 10px;background:#171a15;font-size:14px;color:var(--ink)}.sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}@media(max-width:950px){.edition{display:none}.header-tools{gap:10px}.intro{max-width:260px}.gestures{gap:15px}.gestures article{gap:10px}.stage-bottom .prototype{display:none}}@media(max-width:700px){.intro{max-width:none}.lab{display:none}.state{max-width:100%;line-height:1.5}.stage-bottom{bottom:8px}.message{font-size:13px}.trim{flex-wrap:wrap}.trim label{flex:1}h2{font-size:15px}}
 .timeline-track{position:relative}.fill-marker{position:absolute;top:-2px;transform:translateX(-50%);font-size:10px;color:var(--gold);line-height:1}.fill-marker:after{content:'';position:absolute;top:16px;left:50%;height:10px;width:1px;background:var(--gold);pointer-events:none}.challenge{position:absolute;z-index:3;top:55px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:1.2px;white-space:nowrap;padding:5px 12px;border:1px solid #494333;border-radius:20px;background:#14130edb;color:#cbb789}.near-full .challenge{color:#ffc967;border-color:#efb14c}.spilling{border-color:#fa785c;box-shadow:inset 0 0 45px #fa785c18}.spilling .challenge{background:#562214e8;color:#ffd9c6;border-color:#fa785c}.spilling .level,.spilling .stage-top>span:first-child{color:#ff8268}.spilling #meterFill{background:#ff8268}.spilling .state i.live{background:#ff8268}@media(max-width:700px){.challenge{top:51px;font-size:9px;letter-spacing:.5px;padding:5px 8px}}
+/* Mobile interaction and viewport layout */
+#experience{min-width:0}#scene{touch-action:pan-y;user-select:none;-webkit-user-select:none;position:relative;z-index:1}.stage-top{z-index:5}.challenge,.level,.stage-bottom{pointer-events:none}.camera-box{z-index:2}#timeline{touch-action:pan-y;height:28px;background:linear-gradient(var(--line),var(--line)) center/100% 4px no-repeat;margin:8px 0 0}#timeline::-webkit-slider-thumb{width:22px;height:22px}#timeline::-moz-range-thumb{width:22px;height:22px;border:0;border-radius:50%;background:var(--gold)}.fill-marker:after{top:14px}.small{min-height:44px}button{touch-action:manipulation}
+body.experience-open{overflow:hidden}#experience.expanded,#experience:fullscreen{background:var(--bg);display:flex;flex-direction:column;padding:env(safe-area-inset-top,0px) max(12px,env(safe-area-inset-right,0px)) env(safe-area-inset-bottom,0px) max(12px,env(safe-area-inset-left,0px));width:100%;height:100vh;height:100dvh;overflow:auto;overscroll-behavior:contain}#experience.expanded{position:fixed;inset:0;z-index:1000}#experience.expanded .stage,#experience:fullscreen .stage{flex:1 0 240px;height:auto;min-height:240px;max-height:none;border-radius:0}#experience.expanded .transport,#experience:fullscreen .transport{flex:0 0 auto;padding-top:8px}#experience.expanded .message,#experience:fullscreen .message{margin:8px 0;font-size:12px}#experience.expanded .actions,#experience:fullscreen .actions{margin-top:8px}#experience.expanded .stage-top,#experience:fullscreen .stage-top{top:8px}.stage-bottom .state{max-width:100%;line-height:1.45}
+@media(max-width:700px){.stage{height:clamp(340px,55svh,480px)}#beerCanvas{width:100%;height:100%;object-fit:contain}.challenge{top:65px;max-width:calc(100% - 28px);white-space:normal;text-align:center;font-size:10px}.stage-bottom{min-height:35px;align-items:end}.camera-box{bottom:65px;width:92px;height:69px}.level{right:12px;top:36%}.stage-top{align-items:start}.transport .actions{gap:8px}.main-actions{width:100%}.main-actions button{min-height:44px}.main-actions .primary{flex:1}.settings input,.settings select{font-size:16px}#experience.expanded .stage{min-height:260px}#experience.expanded .message{display:none}#experience.expanded #next{width:auto;flex:1}#experience.expanded .actions{flex-wrap:nowrap}#experience.expanded .main-actions{width:auto;flex:2;flex-wrap:wrap}#experience.expanded #next span{margin-left:8px}#experience.expanded .primary{flex-basis:100%}}
+@media(max-height:500px) and (orientation:landscape){#experience.expanded,#experience:fullscreen{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,36%);gap:12px}#experience.expanded .stage,#experience:fullscreen .stage{height:100%;min-height:0}#experience.expanded .transport,#experience:fullscreen .transport{overflow:auto;align-self:center}.camera-box{width:80px;height:60px;bottom:60px}.challenge{top:58px;font-size:9px}.level{top:38%;right:12px}.meter{height:40px}.stage-bottom .state{font-size:11px}}
+@media(max-width:700px){#scene{padding:88px 0 82px}.camera-box{width:86px;height:65px}.camera-label{font-size:8px}#cameraPlaceholder{font-size:10px;text-align:center;line-height:1.25}#cameraPlaceholder span{font-size:22px;margin-bottom:2px}}
+@media(max-height:500px) and (orientation:landscape){#scene{padding:60px 0 50px}}
+.level{z-index:2}@media(max-width:700px){.level{top:15px;right:140px;gap:0}.level .meter,.level #levelLabel{display:none}#percent{font-size:22px}}
+@media(max-height:500px) and (orientation:landscape){#experience.expanded .actions,#experience:fullscreen .actions{display:flex;flex-wrap:wrap}#experience.expanded .main-actions,#experience:fullscreen .main-actions{display:grid;grid-template-columns:1fr auto;flex:1 0 100%;min-width:0}#experience.expanded .primary,#experience:fullscreen .primary{grid-column:1/-1}#experience.expanded #next,#experience:fullscreen #next{flex:1 0 100%;width:100%}#experience.expanded button,#experience:fullscreen button{min-height:40px;padding:7px 10px}#experience.expanded .message,#experience:fullscreen .message{display:none}#cameraPlaceholder{font-size:9px;text-align:center;line-height:1.15}#cameraPlaceholder span{font-size:17px;margin:0}.camera-label{font-size:7px}}
 
 </style></head>
 <body><main><header><a class="wordmark" href="./">BEER<span>/</span>TIME<span class="lab">HAND LAB</span></a><div class="header-tools"><label class="sr-only" for="language">Language / ภาษา</label><select id="language" aria-label="Language / ภาษา"><option value="en">English</option><option value="th">ไทย</option></select><div class="edition">INTERACTIVE EXPERIMENT <span>01</span></div></div></header>
 <section class="heading"><div><p class="eyebrow">เวลาอยู่ในมือคุณ</p><h1>Make time <em>flow.</em></h1></div><p class="intro">ยกมือเพื่อเติม ลดมือเพื่อย้อนกลับ<br>ปล่อยนิ้วเพื่อหยุดทุกอย่างไว้ตรงนั้น</p></section>
-<section class="stage" aria-label="พื้นที่ควบคุมเบียร์"><div id="challenge" class="challenge" role="status">ท้าทาย: หยุดให้พอดี 100%</div><div class="stage-top"><span id="glassLabel">GLASS 01</span><span id="modeLabel">EMPTY → FULL</span><button id="fullscreen" class="small" aria-label="เต็มหน้าจอ">⛶ เต็มจอ</button></div>
-<div id="scene"><canvas id="beerCanvas" width="1280" height="720" aria-label="ภาพแก้วเบียร์ตามระดับที่ควบคุม"></canvas></div>
+<div id="experience"><section class="stage" aria-label="พื้นที่ควบคุมเบียร์"><div id="challenge" class="challenge" role="status">ท้าทาย: หยุดให้พอดี 100%</div><div class="stage-top"><span id="glassLabel">GLASS 01</span><span id="modeLabel">EMPTY → FULL</span><button id="fullscreen" class="small" aria-label="เต็มหน้าจอ">⛶ เต็มจอ</button></div>
+<video id="footage" src="beer-overflow.mp4?v=2" preload="auto" muted playsinline webkit-playsinline autoplay style="position:fixed;left:0;top:0;width:2px;height:2px;opacity:.01;pointer-events:none" aria-hidden="true"></video><div id="scene"><canvas id="beerCanvas" width="1280" height="720" aria-label="ภาพแก้วเบียร์ตามระดับที่ควบคุม"></canvas></div>
 <div class="camera-box"><video id="camera" muted playsinline></video><canvas id="skeleton" width="320" height="240"></canvas><div id="cameraPlaceholder"><span>✋</span>กล้องติดตามมือ</div><span class="camera-label" id="cameraLabel">CAMERA OFF</span></div>
 <div class="level"><span id="percent">0<span>%</span></span><div class="meter"><div id="meterFill"></div></div><span id="levelLabel">แก้วเปล่า</span></div>
 <div class="stage-bottom"><span class="state"><i id="statusDot"></i><span id="status" role="status">พร้อมทดลอง • เปิดกล้องหรือเลื่อนแถบด้านล่าง</span></span><span class="prototype">COMPOSITE STUDY / 001</span></div></section>
 <section class="transport"><div class="timeline-label"><label for="timeline">ระดับเบียร์ / เวลา</label><span><span id="time">0.00</span> <span class="muted">/ <span id="duration">8.00</span> s</span></span></div><div class="timeline-track"><span id="fillMarker" class="fill-marker" aria-hidden="true">100%</span><input id="timeline" type="range" min="0" max="1500" value="0" aria-label="ระดับเบียร์และเวลา"></div><div class="timeline-ends"><span>EMPTY / REWIND</span><span id="rangeEnd">150% / ล้นแก้ว</span></div><div class="actions"><div class="main-actions"><button id="startCamera" class="primary">◉ เปิดกล้องควบคุมมือ</button><button id="demo">▷ ลองอัตโนมัติ</button><button id="reset" class="icon-button" aria-label="กลับแก้วเปล่า">↺</button></div><button id="next">แก้วถัดไป <span>←</span></button></div><p id="message" class="message" aria-live="polite">จีบนิ้วโป้งกับนิ้วชี้ค้างไว้ แล้วขยับมือขึ้น–ลง • ภาพจากกล้องประมวลผลบนอุปกรณ์นี้</p></section>
-<section class="gestures" aria-label="วิธีเล่น"><article><span class="gesture-symbol">↕</span><div><span class="step">01 / CONTROL</span><h2>จีบนิ้ว แล้วขยับขึ้น–ลง</h2><p>ยกขึ้นเพื่อเติมเบียร์ ลดลงเพื่อย้อนเวลา</p></div></article><article><span class="gesture-symbol">Ⅱ</span><div><span class="step">02 / FREEZE</span><h2>ปล่อยนิ้วเพื่อหยุด</h2><p>ค้างภาพไว้ได้ทุกจังหวะ แล้วจีบนิ้วต่อได้เลย</p></div></article><article><span class="gesture-symbol">←</span><div><span class="step">03 / NEXT GLASS</span><h2>แบมือ แล้วปัดซ้าย</h2><p>เลื่อนไปแก้วถัดไป เริ่มใหม่จากแก้วเปล่า</p></div></article></section>
+</div><section class="gestures" aria-label="วิธีเล่น"><article><span class="gesture-symbol">↕</span><div><span class="step">01 / CONTROL</span><h2>จีบนิ้ว แล้วขยับขึ้น–ลง</h2><p>ยกขึ้นเพื่อเติมเบียร์ ลดลงเพื่อย้อนเวลา</p></div></article><article><span class="gesture-symbol">Ⅱ</span><div><span class="step">02 / FREEZE</span><h2>ปล่อยนิ้วเพื่อหยุด</h2><p>ค้างภาพไว้ได้ทุกจังหวะ แล้วจีบนิ้วต่อได้เลย</p></div></article><article><span class="gesture-symbol">←</span><div><span class="step">03 / NEXT GLASS</span><h2>แบมือ แล้วปัดซ้าย</h2><p>เลื่อนไปแก้วถัดไป เริ่มใหม่จากแก้วเปล่า</p></div></article></section>
 <details class="settings"><summary>ฟุตเทจและการตั้งค่า <span>＋</span></summary><div class="settings-grid"><div><label for="mode">รูปแบบการทดลอง</label><select id="mode"><option value="fill">เติมแก้วจากศูนย์ (ภาพประกอบ + ฟุตเทจ)</option><option value="raw">ควบคุมเวลาฟุตเทจจริง</option></select><p>คลิปต้นฉบับเริ่มจากแก้วมีเบียร์ โหมดเติมจึงใช้ภาพแก้วเปล่าที่สร้างขึ้นประกอบกับคลิป ส่วนโหมดฟุตเทจจริงจะแสดงภาพตามต้นฉบับ</p></div><div><label for="upload">เพิ่มวิดีโอของคุณ (เลือกได้หลายคลิป)</label><input type="file" id="upload" accept="video/*" multiple><p id="sourceInfo">1 คลิป • ใช้ช็อตเดิมในแก้วถัดไป • ตัดช่วงก่อนฟองล้น</p></div><div><label for="sensitivity">ระยะขยับมือ</label><select id="sensitivity"><option value="2.2">ปกติ</option><option value="3.6">ขยับน้อย</option><option value="1.4">ขยับมาก</option></select></div><div><label>ช่วงเวลาในคลิปที่เลือก (วินาที)</label><div class="trim"><label>เริ่ม / ว่าง <input id="clipStart" type="number" min="0" step="0.1" value="0"></label><label>จบ / เต็ม <input id="clipEnd" type="number" min="0" step="0.1" value="8"></label><button id="applyTrim">ใช้ช่วงนี้</button></div><p>คลิปที่ดื่มจากเต็มเป็นว่าง: ตั้งเวลาเริ่มมากกว่าเวลาจบเพื่อเล่นย้อนกลับ</p></div></div></details>
-<footer><span>BEER / TIME</span><span>↑ ↓ ควบคุม · Space เล่น/หยุด · N แก้วถัดไป · R เริ่มใหม่</span><span>PROTOTYPE v0.2</span></footer>
-<video id="footage" src="beer-overflow.mp4?v=2" preload="auto" muted playsinline autoplay style="position:fixed;left:-10px;bottom:0;width:2px;height:2px;opacity:.001;pointer-events:none" aria-hidden="true"></video></main><script type="module">
+<footer><span>BEER / TIME</span><span>↑ ↓ ควบคุม · Space เล่น/หยุด · N แก้วถัดไป · R เริ่มใหม่</span><span>PROTOTYPE v0.3</span></footer>
+</main><script type="module">
 const MAX_FILL=1.5;
 const FULL_TIME=18;
 const SPILL_END=48;
@@ -26,6 +35,8 @@ function clipTime(progress,clip,overflow){
 }
 
 const translations={
+'✕ ออกจากเต็มจอ':'✕ Exit fullscreen','ออกจากเต็มจอ':'Exit fullscreen',
+
 'ท้าทาย: หยุดให้พอดี 100%':'CHALLENGE: STOP AT 100%',
 'ระวัง! หยุดให้พอดี 100%':'CAREFUL! STOP AT 100%',
 'ล้นแล้ว! ลดมือลงเพื่อย้อนกลับ':'OVERFLOW! LOWER YOUR HAND TO REWIND',
@@ -140,10 +151,12 @@ class GestureController{
 }
 
 const $=id=>document.getElementById(id);
-const video=$('footage'),canvas=$('beerCanvas'),ctx=canvas.getContext('2d'),camera=$('camera'),skeleton=$('skeleton'),sk=skeleton.getContext('2d');
+const video=$('footage'),canvas=$('beerCanvas'),displayContext=canvas.getContext('2d'),camera=$('camera'),skeleton=$('skeleton'),sk=skeleton.getContext('2d');
+const renderSurface=document.createElement('canvas');renderSurface.width=1280;renderSurface.height=720;const ctx=renderSurface.getContext('2d');
+function paint(){draw();const portrait=document.querySelector('.stage').clientWidth/document.querySelector('.stage').clientHeight<1.2;const width=portrait?680:1280;if(canvas.width!==width)canvas.width=width;displayContext.clearRect(0,0,width,720);displayContext.drawImage(renderSurface,portrait?360:0,0,width,720,0,0,width,720);}
 const frame=document.createElement('canvas');frame.width=960;frame.height=540;const frameContext=frame.getContext('2d');let frameReady=false;
 video.addEventListener('seeked',captureFrame);video.addEventListener('loadeddata',captureFrame);
-function captureFrame(){if(video.readyState>=2){frame.width=video.videoWidth;frame.height=video.videoHeight;frameContext.drawImage(video,0,0);frameReady=true;}}
+function captureFrame(){if(video.readyState>=2){if(frame.width!==video.videoWidth||frame.height!==video.videoHeight){frame.width=video.videoWidth;frame.height=video.videoHeight;}frameContext.drawImage(video,0,0);frameReady=true;}}
 const empty=new Image(),full=new Image();empty.src='empty-glass.png';full.src='full-glass.png';
 let p=0,target=0,glass=1,index=0,transition=false,demo=false,demoClock=0,lastTick=0,stream=null,detector=null,tracking=false,loading=false,lastCameraTime=-1,lastDetect=0,sourceGeneration=0;
 const clips=[{url:'beer-overflow.mp4?v=2',name:'The Beer Beauty',start:0,end:49.9,builtin:true}];
@@ -152,7 +165,7 @@ const connections=[[0,1],[1,2],[2,3],[3,4],[0,5],[5,6],[6,7],[7,8],[5,9],[9,10],
 const say=(text,live=false)=>{setText('status',text);$('statusDot').classList.toggle('live',live);};
 const overflowEnabled=()=>clips[index].builtin&&$('mode').value==='fill';
 const limit=()=>overflowEnabled()?MAX_FILL:1;
-function setProgress(value,manual=true){target=clamp(value,0,limit());if(manual){stopDemo();gestures.reset();}updateUI();}
+function setProgress(value,manual=true){primeVideo();target=clamp(value,0,limit());if(manual){stopDemo();gestures.reset();}updateUI();}
 function updateUI(){
  const clip=clips[index];$('timeline').value=Math.round(target*1000);$('percent').innerHTML=Math.round(target*100)+'<span>%</span>';$('meterFill').style.height=Math.min(100,target*100)+'%';
  $('timeline').max=limit()*1000;document.querySelector('.stage').classList.toggle('spilling',overflowEnabled()&&target>1);document.querySelector('.stage').classList.toggle('near-full',overflowEnabled()&&target>=.9&&target<=1);
@@ -165,11 +178,11 @@ function updateUI(){
  setText('glassLabel','GLASS '+String(glass).padStart(2,'0'));setText('modeLabel',$('mode').value==='fill'?'EMPTY → FULL':'FOOTAGE / TIME CONTROL');
 }
 function stopDemo(){demo=false;setText('demo','▷ ลองอัตโนมัติ');}
-function toggleDemo(){demo=!demo;gestures.reset();demoClock=0;if(demo){target=0;setText('demo','Ⅱ หยุดการทดลอง');say('กำลังสาธิต • เติม → หยุด → ย้อนกลับ',true);}else{setText('demo','▷ ลองอัตโนมัติ');say('หยุดเวลาแล้ว');}}
-function seek(){const clip=clips[index];const t=clipTime(p,clip,overflowEnabled());if(video.readyState>=2&&!video.seeking&&Math.abs(video.currentTime-t)>.024)video.currentTime=clamp(t,0,Math.max(0,video.duration-.04));}
+function toggleDemo(){primeVideo();demo=!demo;gestures.reset();demoClock=0;if(demo){target=0;setText('demo','Ⅱ หยุดการทดลอง');say('กำลังสาธิต • เติม → หยุด → ย้อนกลับ',true);}else{setText('demo','▷ ลองอัตโนมัติ');say('หยุดเวลาแล้ว');}}
+function seek(){const clip=clips[index];const t=clipTime(p,clip,overflowEnabled());if(video.readyState>=1&&Number.isFinite(video.duration)&&!video.seeking&&Math.abs(video.currentTime-t)>.024)video.currentTime=clamp(t,0,Math.max(0,video.duration-.04));}
 function draw(){
  ctx.fillStyle='#000';ctx.fillRect(0,0,1280,720);
- if(video.readyState>=2)captureFrame();const ready=frameReady;
+ const ready=frameReady;
  if($('mode').value==='raw'||!clips[index].builtin){
   if(ready){const scale=Math.min(1280/video.videoWidth,720/video.videoHeight),w=video.videoWidth*scale,h=video.videoHeight*scale;ctx.drawImage(frame,(1280-w)/2,(720-h)/2,w,h);}
   return;
@@ -188,15 +201,23 @@ function draw(){
  // Blend into the complete source frame at the rim, preserving real foam spilling outside the glass.
  if(p>.9){ctx.save();ctx.globalAlpha=clamp((p-.9)/.1);ctx.drawImage(frame,0,0,1280,720);ctx.restore();}
 }
+async function slideScene(frames,duration){
+ const scene=$('scene');
+ if(typeof scene.animate!=='function')return;
+ const animation=scene.animate(frames,{duration:matchMedia('(prefers-reduced-motion: reduce)').matches?90:duration,easing:'ease-in-out',fill:'forwards'});
+ try{await animation.finished;}catch{} // A resize or interrupted animation must not lock navigation.
+}
 async function nextGlass(){
- if(transition)return;transition=true;stopDemo();gestures.reset();say('กำลังเปลี่ยนแก้ว');
+ if(transition)return;primeVideo();transition=true;stopDemo();gestures.reset();say('กำลังเปลี่ยนแก้ว');$('next').disabled=true;
  const scene=$('scene'),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
- await scene.animate([{transform:'translateX(0)',opacity:1},{transform:'translateX(-60%)',opacity:0}],{duration:reduce?0:280,easing:'ease-in',fill:'forwards'}).finished;
- glass++;index=(index+1)%clips.length;target=0;p=0;
- await loadClip();draw();updateUI();
- scene.getAnimations().forEach(a=>a.cancel());
- await scene.animate([{transform:'translateX(60%)',opacity:0},{transform:'translateX(0)',opacity:1}],{duration:reduce?0:350,easing:'ease-out'}).finished;
- transition=false;say(clips[index].builtin?'แก้วใหม่พร้อมแล้ว • จีบนิ้วแล้วค่อย ๆ ยกมือ':'คลิปถัดไปพร้อมแล้ว • ตั้งช่วงเริ่ม/จบได้ด้านล่าง');
+ try{
+  await slideScene([{transform:'translateX(0)',opacity:1},{transform:reduce?'translateX(0)':'translateX(-100%)',opacity:0}],280);
+  glass++;index=(index+1)%clips.length;target=0;p=0;
+  await loadClip();paint();updateUI();
+  scene.getAnimations?.().forEach(a=>a.cancel());
+  await slideScene([{transform:reduce?'translateX(0)':'translateX(100%)',opacity:0},{transform:'translateX(0)',opacity:1}],350);
+  say(clips[index].builtin?'แก้วใหม่พร้อมแล้ว • จีบนิ้วแล้วค่อย ๆ ยกมือ':'คลิปถัดไปพร้อมแล้ว • ตั้งช่วงเริ่ม/จบได้ด้านล่าง');
+ }finally{scene.getAnimations?.().forEach(a=>a.cancel());transition=false;$('next').disabled=false;}
 }
 async function loadClip(){
  const clip=clips[index],generation=++sourceGeneration;
@@ -215,7 +236,7 @@ async function loadClip(){
 function drawHand(points){sk.clearRect(0,0,320,240);if(!points)return;sk.strokeStyle='#efb14c';sk.lineWidth=2;for(const [a,b] of connections){sk.beginPath();sk.moveTo(points[a].x*320,points[a].y*240);sk.lineTo(points[b].x*320,points[b].y*240);sk.stroke();}sk.fillStyle='#fff5d9';for(const q of points){sk.beginPath();sk.arc(q.x*320,q.y*240,2.5,0,Math.PI*2);sk.fill();}}
 function stopCamera(){tracking=false;stream?.getTracks().forEach(t=>t.stop());stream=null;camera.srcObject=null;gestures.reset();drawHand(null);$('cameraPlaceholder').style.display='flex';setText('cameraLabel','CAMERA OFF');setText('startCamera','◉ เปิดกล้องควบคุมมือ');say('ปิดกล้องแล้ว • ยังใช้แถบเลื่อนควบคุมได้');}
 async function startCamera(){
- if(tracking){stopCamera();return;}if(loading)return;loading=true;$('startCamera').disabled=true;stopDemo();
+ primeVideo();if(tracking){stopCamera();return;}if(loading)return;loading=true;$('startCamera').disabled=true;stopDemo();
  try{
   if(!navigator.mediaDevices?.getUserMedia)throw new Error('UNAVAILABLE');
   say('กำลังเปิดกล้องและเตรียมการติดตามมือ');
@@ -237,13 +258,36 @@ function tick(now){
   }catch(e){stopCamera();say('การติดตามมือหยุดลง • กดเปิดกล้องเพื่อลองใหม่');console.error(e);}
  }
  p+= (target-p)*Math.min(1,dt*18);if(Math.abs(p-target)<.0005)p=target;
- seek();draw();requestAnimationFrame(tick);
+ seek();paint();requestAnimationFrame(tick);
 }
 $('startCamera').onclick=startCamera;$('demo').onclick=toggleDemo;$('next').onclick=nextGlass;
 $('reset').onclick=()=>{setProgress(0);say('กลับมาเริ่มที่แก้วเปล่า');};
 $('timeline').oninput=e=>{setProgress(Number(e.target.value)/1000);say('กำลังควบคุมด้วยแถบเลื่อน');};
 $('mode').onchange=()=>{setProgress(0);updateUI();say($('mode').value==='raw'?'ฟุตเทจจริง • คลิปนี้เริ่มจากแก้วมีเบียร์':'โหมดเติมแก้ว • เริ่มจากแก้วเปล่า');};
-$('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.querySelector('.stage').requestFullscreen();}catch{setText('message','เบราว์เซอร์นี้ไม่รองรับเต็มจอ');}};
+const experience=$('experience');let savedScroll=0;
+const nativeFullscreen=()=>document.fullscreenElement||document.webkitFullscreenElement;
+function updateFullscreenButton(){const active=!!nativeFullscreen()||experience.classList.contains('expanded');setText('fullscreen',active?'✕ ออกจากเต็มจอ':'⛶ เต็มจอ');$('fullscreen').setAttribute('aria-expanded',String(active));$('fullscreen').setAttribute('aria-label',t(active?'ออกจากเต็มจอ':'เต็มหน้าจอ'));}
+function expandPage(){savedScroll=window.scrollY;experience.classList.add('expanded');document.body.classList.add('experience-open');updateFullscreenButton();}
+function collapsePage(){experience.classList.remove('expanded');document.body.classList.remove('experience-open');window.scrollTo(0,savedScroll);updateFullscreenButton();$('fullscreen').focus({preventScroll:true});}
+$('fullscreen').onclick=async()=>{
+ primeVideo();
+ if(experience.classList.contains('expanded')){collapsePage();return;}
+ if(nativeFullscreen()){try{await (document.exitFullscreen?.()??document.webkitExitFullscreen?.());}catch{}return;}
+ // Phones use an in-page full viewport so controls remain available even without native fullscreen.
+ if(matchMedia('(max-width: 700px), (pointer: coarse)').matches){expandPage();return;}
+ try{const request=experience.requestFullscreen||experience.webkitRequestFullscreen;if(!request){expandPage();return;}await request.call(experience);}catch{expandPage();}
+ updateFullscreenButton();
+};
+document.addEventListener('fullscreenchange',updateFullscreenButton);document.addEventListener('webkitfullscreenchange',updateFullscreenButton);
+window.addEventListener('keydown',e=>{if(e.key==='Escape'&&experience.classList.contains('expanded'))collapsePage();});
+// Touch swipe is independent of camera gestures and never captures the range slider.
+let touchStart=null;
+$('scene').addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'||transition)return;primeVideo();touchStart={x:e.clientX,y:e.clientY,id:e.pointerId,time:performance.now()};});
+$('scene').addEventListener('pointerup',e=>{if(!touchStart||touchStart.id!==e.pointerId)return;const dx=e.clientX-touchStart.x,dy=e.clientY-touchStart.y,elapsed=performance.now()-touchStart.time;touchStart=null;if(dx < -55&&Math.abs(dx)>Math.abs(dy)*1.6&&elapsed<900)nextGlass();});
+$('scene').addEventListener('pointercancel',()=>{touchStart=null;});
+$('timeline').addEventListener('pointerdown',primeVideo);
+$('timeline').addEventListener('change',e=>setProgress(Number(e.target.value)/1000));
+
 $('applyTrim').onclick=()=>{const a=Number($('clipStart').value),b=Number($('clipEnd').value);if(!Number.isFinite(a)||!Number.isFinite(b)||a<0||b<0||a===b||Math.max(a,b)>video.duration){setText('message','ระบุเวลาเริ่มและจบต่างกัน และอยู่ภายในความยาวคลิป '+(video.duration||0).toFixed(2)+' วินาที');return;}clips[index].start=a;clips[index].end=b;setProgress(0);setText('message',overflowEnabled()?'บันทึกช่วงเวลาสำหรับโหมดฟุตเทจจริงแล้ว':('บันทึกช่วงเวลาแล้ว • แก้วถัดไปจะเริ่มที่เวลา '+a.toFixed(2)+' วินาที'));};
 $('upload').onchange=async e=>{const files=[...e.target.files].filter(f=>f.type.startsWith('video/')||/\.(mp4|mov|webm)$/i.test(f.name));if(!files.length)return;stopDemo();for(const f of files)clips.push({url:URL.createObjectURL(f),name:f.name,start:0,end:Infinity,builtin:false});index=clips.length-files.length;glass++;target=p=0;await loadClip();say('เพิ่มคลิปแล้ว • ตั้งเวลาเริ่มให้เป็นเฟรมแก้วเปล่า');setText('message','คลิปอยู่บนอุปกรณ์นี้เท่านั้น • ปรับเวลาเริ่ม/จบด้านล่างให้ตรงกับเฟรมว่างและเต็ม');};
 video.addEventListener('error',()=>{say('อ่านวิดีโอไม่ได้ • ลองไฟล์ MP4 (H.264)');setText('message','ไฟล์นี้อาจใช้รูปแบบวิดีโอที่เบราว์เซอร์ไม่รองรับ');});
@@ -252,8 +296,17 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden){stopDemo()
 window.addEventListener('pagehide',()=>{stream?.getTracks().forEach(t=>t.stop());detector?.close();for(const c of clips)if(c.url.startsWith('blob:'))URL.revokeObjectURL(c.url);});
 // Optional browser-native agent tools call the same controls as the visible interface.
 const context=document.modelContext;if(context?.registerTool){const lifecycle=new AbortController();const register=t=>{try{Promise.resolve(context.registerTool(t,{signal:lifecycle.signal})).catch(console.warn);}catch(e){console.warn(e);}};register({name:'set_beer_progress',description:'Set beer fill from 0 to 1.5 (over 1 spills in built-in fill mode); raw clips support 0 to 1.',inputSchema:{type:'object',properties:{progress:{type:'number',minimum:0,maximum:1.5}},required:['progress'],additionalProperties:false},annotations:{readOnlyHint:false},execute:async input=>{if(typeof input.progress!=='number'||!Number.isFinite(input.progress)||input.progress<0||input.progress>limit())throw new Error('progress must be between 0 and '+limit());setProgress(input.progress);return {progress:target,glass};}});register({name:'next_beer_glass',description:'Slide to the next glass and reset progress to zero.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:false},execute:async()=>{await nextGlass();return {progress:target,glass};}});window.addEventListener('pagehide',()=>lifecycle.abort());}
-video.addEventListener('loadeddata',()=>video.pause());
-video.play().then(()=>video.pause()).catch(()=>{});
+let priming=false,videoPrimed=false;
+function primeVideo(){
+ if(videoPrimed||priming)return;
+ priming=true;
+ // play() is invoked synchronously inside the touch/click handler to unlock iOS decoding.
+ try{const attempt=video.play();Promise.resolve(attempt).then(()=>{videoPrimed=true;video.pause();captureFrame();}).catch(()=>{}).finally(()=>{priming=false;});}catch{priming=false;}
+}
+video.addEventListener('loadeddata',()=>{captureFrame();if(!priming)video.pause();});
+video.addEventListener('loadedmetadata',()=>{seek();});
+video.addEventListener('emptied',()=>{videoPrimed=false;frameReady=false;});
+primeVideo();
 initLanguage();loadClip();requestAnimationFrame(tick);
 
 </script></body></html>
